@@ -1,0 +1,24 @@
+<idea-plugin>
+    <id>com.suifeng.QuickOpen</id>
+    <name>QuickOpen</name>
+    <vendor email="ssuifengczc@163.com" url="https://github.com/suifengczc">Suifeng</vendor>
+
+    <description>A project than can quick open project in open recent by [ctrl + shift + O]</description>
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="QuickOpenActionId" class="com.suifeng.quickopen.QuickOpenAction" text="QuickOpenActionName"
+                description="QuickOpenActionDesc">
+            <add-to-group group-id="FileMenu" relative-to-action="FileOpenGroup" anchor="after"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl O"/>
+        </action>
+    </actions>
+</idea-plugin>
