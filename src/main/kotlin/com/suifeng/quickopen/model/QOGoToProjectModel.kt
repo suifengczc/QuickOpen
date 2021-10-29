@@ -6,26 +6,31 @@ import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import com.suifeng.quickopen.contributor.QOChooseByNameContributor
+import com.suifeng.quickopen.data.QOItemData
+import com.suifeng.quickopen.item.QONavigationItem
 
 class QOGoToProjectModel(project: Project) :
-    FilteringGotoByModel<FileType>(
+    FilteringGotoByModel<QOItemData>(
         project,
         listOf(QOChooseByNameContributor())
     ) {
+    /**
+     * 搜索框标题
+     */
     override fun getPromptText(): String {
-        return ""
+        return "QUICK OPEN"
     }
 
     override fun getNotInMessage(): String {
-        return ""
+        return "NOT IN MESSAGE"
     }
 
     override fun getNotFoundMessage(): String {
-        return ""
+        return "NOT FOUND MESSAGE"
     }
 
     override fun getCheckBoxName(): String? {
-        return ""
+        return "CHECK BOX NAME"
     }
 
     override fun loadInitialCheckBoxState(): Boolean {
@@ -37,18 +42,21 @@ class QOGoToProjectModel(project: Project) :
     }
 
     override fun getSeparators(): Array<String> {
-        return arrayOf("")
+        return arrayOf("/", "\\")
     }
 
     override fun getFullName(element: Any): String? {
-        return "fullname"
+        return (element as? QONavigationItem)?.projectData?.projectPath
     }
 
     override fun willOpenEditor(): Boolean {
         return true
     }
 
-    override fun filterValueFor(item: NavigationItem?): FileType? {
-        return (item as? PsiFile)?.fileType
+    /**
+     * 命中选项
+     */
+    override fun filterValueFor(item: NavigationItem?): QOItemData? {
+        return (item as? QONavigationItem)?.projectData
     }
 }
